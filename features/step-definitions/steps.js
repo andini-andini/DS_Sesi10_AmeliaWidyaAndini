@@ -19,3 +19,6 @@ Then(/^Amelia should see cart page$/, async () => {
     await HomePage.btnCart()
 })
 
+Then(/^Amelia should see error "(.*)"$/, async (message) => {
+    await LoginPage.validateLockedOutUserError(message)
+})

@@ -14,8 +14,8 @@ class HomePage extends Page {
     }
 
     async btnCart(){
-        expect(browser).toHaveUrlContaining('/cart.html')
         await this.iconCart.click();
+        expect(browser).toHaveUrlContaining('/cart.html')
     }
 
     // open() {
