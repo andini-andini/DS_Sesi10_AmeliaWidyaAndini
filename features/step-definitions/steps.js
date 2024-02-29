@@ -1,23 +1,21 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import { expect, $ } from '@wdio/globals'
 
 import LoginPage from '../pageobjects/login.page.js';
-import SecurePage from '../pageobjects/secure.page.js';
+import HomePage from '../pageobjects/home.page.js';
 
-const pages = {
-    login: LoginPage
-}
+Given(/^Amelia is on the login page$/, async () => {
+    await LoginPage.open()
+})
 
-Given(/^I am on the (\w+) page$/, async (page) => {
-    await pages[page].open()
-});
+When(/^Amelia login with "(.*)" credential$/, async (username) => {
+    await LoginPage.login(username)
+})
 
-When(/^I login with (\w+) and (.+)$/, async (username, password) => {
-    await LoginPage.login(username, password)
-});
+Then(/^Amelia should see home page$/, async () => {
+    await HomePage.validateHomePage()
+})
 
-Then(/^I should see a flash message saying (.*)$/, async (message) => {
-    await expect(SecurePage.flashAlert).toBeExisting();
-    await expect(SecurePage.flashAlert).toHaveTextContaining(message);
-});
+Then(/^Amelia should see cart page$/, async () => {
+    await HomePage.btnCart()
+})
 

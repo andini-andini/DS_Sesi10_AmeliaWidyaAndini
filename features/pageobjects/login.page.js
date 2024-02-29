@@ -1,40 +1,68 @@
-import { $ } from '@wdio/globals'
+import { $, expect } from '@wdio/globals'
 import Page from './page.js';
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get inputUsername () {
-        return $('#username');
+
+    get fieldUsername() {
+        return $('#user-name');
     }
 
-    get inputPassword () {
+    get fieldPassword() {
         return $('#password');
     }
 
-    get btnSubmit () {
-        return $('button[type="submit"]');
+    get btnLogin() {
+        return $('#login-button');
     }
 
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
+    get errorLokedUser() {
+        return $('//h3[text()="Epic sadface: Sorry, this user has been locked out."]')
     }
 
-    /**
-     * overwrite specific options to adapt it to page object
-     */
-    open () {
-        return super.open('login');
+    async login(username) {
+        // await this.fieldUsername.waitForDisplayed({ timeout : 2500 });
+        await this.fieldUsername.setValue(username);
+        await this.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await this.btnLogin.click();
+    }
+
+    async validateLockedOutUserError() {
+        expect(this.errorLokedUser).toBeDisplayed()
+    }
+
+    async loginLocked() {
+        await this.fieldUsername.setValue(process.env.USERNAME_LOCKED_OUT_USER);
+        await this.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await this.btnLogin.click();
+        expect(this.errorLokedUser).toBeDisplayed()
+    }
+
+    async loginProblem() {
+        await this.fieldUsername.setValue(process.env.USERNAME_PROBLEM_USER);
+        await this.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await this.btnLogin.click();
+    }
+
+    async loginPerformance() {
+        await this.fieldUsername.setValue(process.env.USERNAME_PERFORMANCE_USER);
+        await this.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await this.btnLogin.click();
+    }
+
+    async loginErrorUser() {
+        await this.fieldUsername.setValue(process.env.USERNAME_ERROR_USER);
+        await this.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await this.btnLogin.click();
+    }
+
+    async loginVisualUser() {
+        await this.fieldUsername.setValue(process.env.USERNAME_VISUAL_USER);
+        await this.fieldPassword.setValue(process.env.PASSWORD_SAUCEDEMO);
+        await this.btnLogin.click();
+    }
+
+    open() {
+        return super.open('/');
     }
 }
 
