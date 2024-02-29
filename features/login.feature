@@ -8,6 +8,8 @@ Feature: Swag Labs - Login
     When Amelia login with "standard_user" credential
     Then Amelia should see home page
     Then Amelia should see cart page
+    Then Amelia should see home page again
+    Then Amelia should see menu
 
   @negative
   Scenario: As a locked_out_user, I want to log in successfully

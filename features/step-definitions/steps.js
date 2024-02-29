@@ -19,6 +19,14 @@ Then(/^Amelia should see cart page$/, async () => {
     await HomePage.btnCart()
 })
 
+Then(/^Amelia should see home page again$/, async () => {
+    await HomePage.ContinueShopping()
+})
+
+Then(/^Amelia should see menu$/, async () => {
+    await HomePage.Menu()
+})
+
 Then(/^Amelia should see error "(.*)"$/, async (message) => {
     await LoginPage.validateLockedOutUserError(message)
 })
